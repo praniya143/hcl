@@ -21,100 +21,21 @@ class BookingController extends Controller
 		return view('booking',compact('hotelrooms'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-	 
-	 
-	 
-	 public function bookingstore(Request $request)
-	 {
-		 
-		 $data = $request->input();
-		 //print_r($data);die;
-		 unset($data['_token']);
-		 DB::table('booking')->insert($data);
-		 
-		 
-	 }
-	 
-    public function create()
-    {
-        //
-		
 
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function history() {
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Booking $booking)
-    {
-        //
-    }
+	    $history = \DB::table('booking')
+		    ->join('hotel_detail', 'booking.hotel_id', '=', 'hotel_detail.id')
+		    ->join('user_auth', 'user_auth.id', '=', 'booking.customer_id')
+		    ->select('user_auth.name','hotel_detail.name As hotelname','booking_date','total_amount','no_of_persons','payment_type','check_in_date','check_out_date','city_name')
+		    ->where('booking.customer_id',1)
+		    ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Booking $booking)
-    {
-        //
-    }
+	    $res = $history->toArray();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Booking $booking)
-    {
-        //
-    }
+	    return view("bookinghistory",compact('res'));
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Booking $booking)
-    {
-        //
-    }
-	
-	public function history() {
-		/*
-	    $flights = App\Flight::where('active', 1)
-               ->orderBy('name', 'desc')
-               ->take(10)
-               ->get();
-	     */
-		 
-		 $history = \App\booking::all();
-         
-		echo "<pre>";
-		print_r($history);	
-		exit;
-	}	
+
+    }	
 }

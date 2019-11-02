@@ -8,7 +8,7 @@
   <div class="row">
 	{{ csrf_field() }}
 	<span class="row">
-		<span class="col-xs-6"></span>
+		<span class="col-xs-6"><a href="/">Home</a></span>
 		<span class="col-xs-2">
 			<input type="text" name="user_name" placeholder="User Name" class="form-control input-sm col-xs-3" />
 		</span>
@@ -16,7 +16,7 @@
 			<input type="password" name="password" placeholder="Password" class="form-control input-sm col-xs-3" ><br>
 		</span>
 		<span class="col-xs-2">
-			<input type="submit" name="Login" />
+			<input type="submit" name="Login" value="Login" class="btn btn-primary" />
 		</span>
 	</span>
 	<span class="row @if($error=='')hide @endif">
