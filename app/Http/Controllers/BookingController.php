@@ -16,84 +16,20 @@ class BookingController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Booking $booking)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Booking  $booking
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Booking $booking)
-    {
-        //
-    }
-	
+    
 	public function history() {
-		/*
-	    $flights = App\Flight::where('active', 1)
-               ->orderBy('name', 'desc')
-               ->take(10)
-               ->get();
-	     */
-		 
-		 $history = \App\booking::all();
+		
+		$history = \DB::table('booking')
+            ->join('hotel_detail', 'booking.hotel_id', '=', 'hotel_detail.id')
+            ->join('user_auth', 'user_auth.id', '=', 'booking.customer_id')
+            ->select('user_auth.name','hotel_detail.name As hotelname','booking_date','total_amount','no_of_persons','payment_type','check_in_date','check_out_date','city_name')
+			->where('booking.customer_id',1)
+            ->get();
+
+		$res = $history->toArray();
+
+		return view("bookinghistory",compact('res'));
+
          
-		echo "<pre>";
-		print_r($history);	
-		exit;
 	}	
 }
