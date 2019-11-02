@@ -17,12 +17,12 @@ class UserAuthController extends Controller
 	    if($userModel){
 		    if(md5($request->get('password')) == $userModel->password){
 			   $_SESSION['user_id'] = $userModel->id;
-			   $_SESSION['user_details'] = $userModel;
-			   return redirect('/home');
+			   $_SESSION['name'] = $userModel->name;
+			   return redirect('/');
 		    }
-		    return redirect('/login?error=2');
+		    return redirect('/?error=2');
 	    }else{
-		    return redirect('/login?error=1');
+		    return redirect('/?error=1');
 	    }
 	    $request->get('user_name');
 

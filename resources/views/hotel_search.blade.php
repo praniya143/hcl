@@ -17,6 +17,19 @@
 
 <body>
     <div class="container">
+	@php
+	    session_start();
+	    if(isset($_SESSION['user_id'])){
+	        @endphp
+			@include('user_info')	   
+		@php
+	    }else{
+		@endphp
+                        @include('login')
+                @php
+	    }
+	@endphp	
+	
         <!-- <h2 class="text-center text-primary">Search Hotel</h2> -->
         <h3 class="text-primary">Search Hotel</h3>
         <form class="form-inline" action="" method="post" name="search_hotel" id="search_hotel">
