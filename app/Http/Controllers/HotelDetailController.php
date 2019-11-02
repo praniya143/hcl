@@ -32,7 +32,22 @@ class HotelDetailController extends Controller
     }
     public function getHotelDetails(Request $request)
     {
-        //SELECT hd.*,b.* FROM `hotel_detail` hd JOIN `booking` b on hd.`id`=b.hotel_id WHERE hd.location_id = "1" AND (check_in_date BETWEEN '2019-11-04' AND '2019-11-11') OR (check_out_date BETWEEN '2019-11-04' AND '2019-11-11') GROUP BY hd.city_name
+        $location_id = $request->input('location_id');
+        $from_date = $request->input('from_date');
+        $to_date = $request->input('to_date');
+        $room_type = $request->input('room_type');
+        $number_of_rooms = $request->input('number_of_rooms');
+        $checkHotelAvailability = DB::select( DB::raw("SELECT hd.*,b.* FROM `hotel_detail` hd JOIN `booking` b on hd.`id`=b.`hotel_id` WHERE hd.`location_id` = '".$location_id."' AND (check_in_date BETWEEN '".$from_date."' AND '".$to_date."') OR (check_out_date BETWEEN '".$from_date."' AND '".$to_date."') GROUP BY hd.`city_name`") );
+        if(count($checkHotelAvailability)>0){
+            echo '<div class="panel panel-default">
+              <div class="panel-heading">Hotel Details</div>
+              <div class="panel-body">No Data Found</div>
+            </div>';
+        }else{
+            // $hotelInfo = DB::select( DB::raw("SELECT hd.*,hr.* FROM `hotel_detail` hd JOIN `hotel_room` hr ON hd.id=hr.hotel_id WHERE hd.`location_id`='".$location_id."' AND hr.room_type='".$room_type."'") );
+            $hotelInfo = DB::select( DB::raw("SELECT `id`, `name`, `city_name`, `location_id`, `address`, `check_in_time`, `free_breakfast`, `photo`, `created_at`, `updated_at` FROM `hotel_detail` WHERE `location_id`='".$location_id."'") );
+            return view('hotel_info',compact('hotelInfo','room_type'));        
+        }
     }
     public function getLocationDetails(Request $request)
     {
