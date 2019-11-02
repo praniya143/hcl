@@ -21,8 +21,6 @@ class BookingController extends Controller
 		return view('booking',compact('hotelrooms'));
     }
 
-
-
     public function history() {
 
 	    $history = \DB::table('booking')
