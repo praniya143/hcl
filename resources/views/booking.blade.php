@@ -16,6 +16,18 @@
 </head>
 
 <body>
+ @php
+            session_start();
+            if(isset($_SESSION['user_id'])){
+                @endphp
+                        @include('user_info')
+                @php
+            }else{
+                @endphp
+                        @include('login')
+                @php
+            }
+        @endphp
 	<div id="booking" class="section">
 		<div class="section-center">
 			<div class="container">
