@@ -21,4 +21,4 @@ Route::group(['middleware' => 'auth.jwt'], function () {
 
 
 
-Route::get('booking', 'BookingController@index');
+Route::get('booking/{id}', 'BookingController@index');
