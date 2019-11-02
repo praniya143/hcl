@@ -38,6 +38,8 @@ class BookingController extends Controller
 		 unset($data['_token']);
 		 DB::table('booking')->insert($data);
 		 
+		 return view('bookingsuccess');
+		 
 		 
 	 }
 	 
