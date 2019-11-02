@@ -46,7 +46,7 @@ class HotelDetailController extends Controller
         }else{
             // $hotelInfo = DB::select( DB::raw("SELECT hd.*,hr.* FROM `hotel_detail` hd JOIN `hotel_room` hr ON hd.id=hr.hotel_id WHERE hd.`location_id`='".$location_id."' AND hr.room_type='".$room_type."'") );
             $hotelInfo = DB::select( DB::raw("SELECT `id`, `name`, `city_name`, `location_id`, `address`, `check_in_time`, `free_breakfast`, `photo`, `created_at`, `updated_at` FROM `hotel_detail` WHERE `location_id`='".$location_id."'") );
-            return view('hotel_info',compact('hotelInfo','room_type'));        
+            return view('hotel_info',compact('hotelInfo','room_type','from_date','to_date'));        
         }
     }
     public function getLocationDetails(Request $request)
