@@ -12,7 +12,6 @@ class UserAuthController extends Controller
 	    return view('login', ['error' => $request->get('error')]);
     }
     public function auth(Request $request){
-	    session_start();
 	    $userModel = UserAuth::where('user_name', '=', $request->get('user_name'))->first();
 	    if($userModel){
 		    if(md5($request->get('password')) == $userModel->password){

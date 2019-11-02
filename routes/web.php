@@ -13,7 +13,6 @@ Route::get('/', 'HotelDetailController@search');
 Route::get('/login', 'UserAuthController@login');
 Route::post('/login', 'UserAuthController@auth');
 Route::get('/logout', function(){
-	session_start();
 	session_destroy();
 	return redirect('/');
 });

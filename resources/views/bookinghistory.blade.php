@@ -13,7 +13,6 @@
 
 <div class="container">
 	 @php
-            session_start();
             if(isset($_SESSION['user_id'])){
                 @endphp
                         @include('user_info')
