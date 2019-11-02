@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -9,10 +8,20 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-Route::get('login', 'UserAuthController@login');
-Route::post('login', 'ApiController@login');
-Route::post('register', 'ApiController@register');
+ */
+Route::get('/', 'HotelDetailController@search');
+Route::get('/login', 'UserAuthController@login');
+Route::post('/login', 'UserAuthController@auth');
+Route::get('/logout', function(){
+	session_start();
+	session_destroy();
+	return redirect('/');
+});
+Route::get('bookinghistory', 'BookingController@history');
+
+Route::get('/hotel-search', 'HotelDetailController@search');
+Route::post('/get-hotel-details', 'HotelDetailController@getHotelDetails');
+Route::post('/get-location-details', 'HotelDetailController@getLocationDetails');
 
 
 Route::get('booking/{id}', 'BookingController@index');
