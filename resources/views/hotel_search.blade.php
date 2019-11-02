@@ -60,7 +60,7 @@
           </div>
           <button type="button" onclick="searchHotelDetails()" class="btn btn-primary">Search</button>
         </form>
-        <div id="emp_details"></div>
+        <div id="hotel_details"></div>
         <script type="text/javascript">
             var $form = $('#search_hotel');
             $(document).ready(function() {
@@ -88,6 +88,12 @@
             *************************/
             function searchHotelDetails() {
                 if($form.parsley().validate()){
+                    var city_name = $("#city_name").val();
+                    var location_id = $("#location_id").val();
+                    var from_date = $("#from_date").val();
+                    var to_date = $("#to_date").val();
+                    var room_type = $("#room_type").val();
+                    var number_of_rooms = $("#number_of_rooms").val();
                     var serializedArr = $("#search_hotel").serializeArray();
                     var jsonObj = jQFormSerializeArrToJson(serializedArr);
                     console.log(JSON.stringify(jsonObj));
@@ -97,10 +103,10 @@
                         headers: {
                             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
                         },
-                        data: JSON.stringify(jsonObj),
+                        // data: JSON.stringify(jsonObj),
+                        data: {"city_name":city_name,"location_id":location_id,"from_date":from_date,"to_date":to_date,"room_type":room_type,"number_of_rooms":number_of_rooms},
                         success: function(result) {
-                            console.log(result);
-
+                            $("#hotel_details").html(result);
                         }
                     });
                 }
