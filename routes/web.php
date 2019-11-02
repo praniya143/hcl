@@ -24,7 +24,7 @@ Route::post('/get-hotel-details', 'HotelDetailController@getHotelDetails');
 Route::post('/get-location-details', 'HotelDetailController@getLocationDetails');
 
 
-Route::get('booking/{id}', 'BookingController@index');
+Route::get('booking/', 'BookingController@index');
 
 
 Route::post('bookingstore', 'BookingController@bookingstore');

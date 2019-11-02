@@ -13,12 +13,24 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+		
+		$data=$request->input();
 		$hotelrooms = \App\HotelRoom::where('hotel_id','=','1')->get();
 		
 		
-		return view('booking',compact('hotelrooms'));
+		return view('booking',compact('hotelrooms','data'));
+    }
+	
+	 public function bookingstore(Request $request)
+    {
+		
+		$data=$request->input();
+		DB::table('booking')->insert($data);
+		
+		
+		return view('booking',compact('hotelrooms','data'));
     }
 
     public function history() {
