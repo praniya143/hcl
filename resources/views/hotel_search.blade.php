@@ -4,6 +4,7 @@
 <head>
     <title>Hotel Management</title>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zebra_datepicker@latest/dist/css/default/zebra_datepicker.min.css">
@@ -20,21 +21,17 @@
         <h3 class="text-primary">Search Hotel</h3>
         <form class="form-inline" action="" method="post" name="search_hotel" id="search_hotel">
           <div class="form-group">
-            <select class="form-control" id="city_name" name="city_name" required="" data-parsley-required-message="Please select city.">
+            <select class="form-control" id="city_name" name="city_name" required="" data-parsley-required-message="Please select city." onchange="getLocations()">
             <option value="">Select City</option>
-            <option value="Hyderabad">Hyderabad</option>
-            <option value="Chennai">Chennai</option>
-            <option value="Bengalure">Bengalure</option>
-            <option value="Mumbai">Mumbai</option>
+            <?php if(count($cities)>0){
+                foreach($cities as $city){?>
+            <option value="<?=$city->city_name?>"><?=$city->city_name?></option>
+        <?php }}?>
           </select>
           </div>
           <div class="form-group">
             <select class="form-control" id="location_id" name="location_id" required="" data-parsley-required-message="Please select location.">
-            <option value="1">Select Location</option>
-            <option value="1">Location1</option>
-            <option value="2">Location2</option>
-            <option value="3">Location3</option>
-            <option value="4">Location4</option>
+            <option value="">Select Location</option>
           </select>
           </div>
           <div class="form-group">
@@ -44,12 +41,11 @@
             <input type="text" class="form-control" id="to_date" name="to_date" placeholder="To Date"  required="" data-parsley-required-message="Please select to date.">
           </div>
           <div class="form-group">
-            <select class="form-control" id="room_type" name="room_type" required="" data-parsley-required-message="Please select room type.">
-            <option value="1">Select Room Type</option>
-            <option value="1">Hyderabad</option>
-            <option value="2">Chennai</option>
-            <option value="3">Bengalure</option>
-            <option value="4">Mumbai</option>
+            <select class="form-control" id="room_type" name="room_type" required="" data-parsley-required-message="Please select room type." >
+            <option value="">Select Room Type</option>
+            <option value="AC">AC</option>
+            <option value="NON AC">NON AC</option>
+            <option value="Deluxe">Deluxe</option>
           </select>
           <div class="form-group">
             <select class="form-control" id="number_of_rooms" name="number_of_rooms"  required="" data-parsley-required-message="Please select rooms.">
@@ -62,7 +58,7 @@
           </select>
           </div>
           </div>
-          <button type="button" onclick="searchHotelDetails()" class="btn btn-primary">Submit</button>
+          <button type="button" onclick="searchHotelDetails()" class="btn btn-primary">Search</button>
         </form>
         <div id="emp_details"></div>
         <script type="text/javascript">
@@ -88,7 +84,7 @@
                 return jsonObj;
             }    
             /*************************
-            * Add/Update Slot Details 
+            * Search Hotel Details
             *************************/
             function searchHotelDetails() {
                 if($form.parsley().validate()){
@@ -96,14 +92,39 @@
                     var jsonObj = jQFormSerializeArrToJson(serializedArr);
                     console.log(JSON.stringify(jsonObj));
                     $.ajax({
-                        url: '',
+                        url: '/get-hotel-details',
                         type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        },
                         data: JSON.stringify(jsonObj),
                         success: function(result) {
                             console.log(result);
 
                         }
                     });
+                }
+            }
+            /*************************
+            * Get Location Details
+            *************************/
+            function getLocations() {
+                var city = $("#city_name").val();
+                if(city !=''){
+                    $.ajax({
+                        url: '/get-location-details',
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {'city':city},
+                        success: function(result) {
+                            console.log(result);
+                            $("#location_id").html(result);
+                        }
+                    });
+                }else{
+                    alert("Please select city.");
                 }
             }
         </script>
