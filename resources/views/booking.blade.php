@@ -42,6 +42,7 @@
 							</div>
 							<div class="row">
 							<input type="hidden" name="hotel_id" value="{{ $data['hotel_id'] }}">
+							<input type="hidden" name="customer_id" value="{{ $_SESSION['user_id'] }}">
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Room Type</span>

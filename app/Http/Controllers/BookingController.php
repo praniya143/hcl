@@ -27,10 +27,11 @@ class BookingController extends Controller
     {
 		
 		$data=$request->input();
+		unset($data['_token']);
 		DB::table('booking')->insert($data);
 		
 		
-		return view('booking',compact('hotelrooms','data'));
+		return redirect('/bookinghistory');
     }
 
     public function history() {
