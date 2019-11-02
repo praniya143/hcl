@@ -1,0 +1,41 @@
+.parsley-errors-list {
+	display: none;
+	margin: 0;
+	padding: 0
+}
+.parsley-errors-list.filled {
+	display: block
+}
+.parsley-errors-list>li {
+	font-size: 15px;
+	list-style: none;
+	color: #ed5466
+}
+.parsley-error {
+	border-color: #ed5466!important
+}
+.parsley-custom-error-message {
+	color: #ed5466
+}
+.parsley-error.custom-checkbox:hover>label:before,
+.parsley-error.custom-checkbox>label:before,
+.parsley-error.custom-radio:hover>label:before,
+.parsley-error.custom-radio>label:before {
+	border: 1px solid #ed5466
+}
+.parsley-error.custom-checkbox>input[type=checkbox]:checked+label:before,
+.parsley-error.custom-radio>input[type=checkbox]:checked+label:before {
+	border-color: #ed5466;
+	background-color: #ed5466
+}
+.parsley-error.custom-checkbox>label,
+.parsley-error.custom-radio>label {
+	color: #ed5466
+}
+.selectize-control .parsley-errors-list {
+	display: none!important
+}
+.parsley-error+.selectize-control .selectize-input {
+	border-color: #ed5466!important
+}
+.btnRefresh{background-color:#8B8B8B;border:0;padding:2px 17px;color:#FFF;float:left;}

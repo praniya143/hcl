@@ -13,6 +13,7 @@
 
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
+Route::get('/hotel-search', 'HotelDetailController@search');
 
 Route::group(['middleware' => 'auth.jwt'], function () {
     Route::get('logout', 'ApiController@logout');
