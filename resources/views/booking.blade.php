@@ -12,8 +12,10 @@
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
@@ -34,24 +36,51 @@
 				<div class="row">
 					<div class="booking-form">
 						<div class="booking-bg"></div>
-						<form action="#" method="post" name="bookingform">
+						<form action="/bookingstore" method="post" name="bookingform">
+						@csrf
 							<div class="form-header">
 								<h2>Make your booking</h2>
 							</div>
 							<div class="row">
+							<input type="hidden" name="hotel_id" value="{{request()->route('id')}}">
+								<div class="col-md-6">
+									<div class="form-group">
+										<span class="form-label">Room Type</span>
+										<select class="form-control" name="hotel_room_id" id="hotel_room_id" >
+										<option>Select Type</option>
+										@foreach ($hotelrooms as $rooms)
+										<option myCost="{{ $rooms->cost }}" value="{{ $rooms->id }}">{{ $rooms->room_type }}  </option>	  
+										@endforeach
+											
+											
+										</select>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-6">
+							<div class="form-group">
+								<span class="form-label">Cost</span>
+								<input class="form-control" type="text" name="total_amount" id="total_amount" readonly placeholder="Cost">
+							</div>
+							</div>
+							</div>
+							<br>
+							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Check In</span>
-										<input class="form-control" type="date" required>
+										<input class="form-control" type="date" name="check_in_date" required>
 									</div>
 								</div>
-								</div>
+							</div>
 								<br>
 								<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Check Out</span>
-										<input class="form-control" type="date" required>
+										<input class="form-control" type="date" name="check_out_date" required>
 									</div>
 								</div>
 							</div>
@@ -60,7 +89,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<span class="form-label">Persons</span>
-										<select class="form-control">
+										<select class="form-control" name="ni_of_persons">
 											<option>1</option>
 											<option>2</option>
 											<option>3</option>
@@ -73,16 +102,7 @@
 								
 							</div>
 							<br>
-							<div class="form-group">
-								<span class="form-label">Email</span>
-								<input class="form-control" type="email" placeholder="Enter your email">
-							</div>
-							<br>
-							<div class="form-group">
-								<span class="form-label">Phone</span>
-								<input class="form-control" type="tel" placeholder="Enter your phone number">
-							</div>
-							<br>
+							
 							<div class="form-btn">
 								<button class="submit-btn">Book Now</button>
 							</div>
@@ -94,4 +114,21 @@
 	</div>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
+<script>
+
+
+$(document).ready(function() {
+$("#hotel_room_id").change(function(){
+	var element = $(this);
+           var option = $('option:selected', this).attr('myCost');
+
+            $('#total_amount').val(option);
+});
+
+});
+
+</script>
 </html>
+
+
+

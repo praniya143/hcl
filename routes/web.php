@@ -10,15 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('login', 'UserAuthController@login');
 Route::post('login', 'ApiController@login');
 Route::post('register', 'ApiController@register');
 
-Route::group(['middleware' => 'auth.jwt'], function () {
-    Route::get('logout', 'ApiController@logout');
-
-});
-
-
 
 Route::get('booking/{id}', 'BookingController@index');
+
+
+Route::post('bookingstore', 'BookingController@bookingstore');

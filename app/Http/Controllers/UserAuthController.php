@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Booking;
-use App\HotelRoom;
+use App\UserAuth;
 use Illuminate\Http\Request;
-use DB;
 
-class BookingController extends Controller
+class UserAuthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-		$hotelrooms = \App\HotelRoom::where('hotel_id','=','1')->get();
-		
-		
-		return view('booking',compact('hotelrooms'));
+        //
     }
 
     /**
@@ -27,26 +22,9 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-	 
-	 
-	 
-	 public function bookingstore(Request $request)
-	 {
-		 
-		 $data = $request->input();
-		 print_r($data);die;
-		 DB::table('users')->insert(
-			['email' => 'john@example.com', 'votes' => 0]
-		);
-		 
-		 
-	 }
-	 
     public function create()
     {
         //
-		
-
     }
 
     /**
@@ -103,5 +81,8 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         //
+    }
+    public function login(){
+	    return view('login');
     }
 }
