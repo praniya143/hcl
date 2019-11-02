@@ -32,7 +32,7 @@ class BookingController extends Controller
 			->join('location', 'hotel_detail.location_id', '=', 'location.id')
             ->join('user_auth', 'user_auth.id', '=', 'booking.customer_id')
             ->select('user_auth.name','hotel_detail.name As hotelname','booking_date','total_amount','no_of_persons','payment_type','check_in_date','check_out_date','location.city_name as city_name','location')
-			->where('booking.customer_id',1);
+			->where('booking.customer_id',$_SESSION['user_id']);
 		if($city!='') {
 			$history->where('location.city_name','LIKE',"%$city%");
 		}
