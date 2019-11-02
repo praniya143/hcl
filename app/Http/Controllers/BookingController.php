@@ -34,10 +34,9 @@ class BookingController extends Controller
 	 {
 		 
 		 $data = $request->input();
-		 print_r($data);die;
-		 DB::table('users')->insert(
-			['email' => 'john@example.com', 'votes' => 0]
-		);
+		 //print_r($data);die;
+		 unset($data['_token']);
+		 DB::table('booking')->insert($data);
 		 
 		 
 	 }
