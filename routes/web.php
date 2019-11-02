@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +17,7 @@ Route::get('/logout', function(){
 	session_destroy();
 	return redirect('/');
 });
+Route::get('bookinghistory', 'BookingController@history');
 
 Route::get('/hotel-search', 'HotelDetailController@search');
 Route::post('/get-hotel-details', 'HotelDetailController@getHotelDetails');

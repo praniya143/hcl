@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Booking;
@@ -103,4 +102,19 @@ class BookingController extends Controller
     {
         //
     }
+	
+	public function history() {
+		/*
+	    $flights = App\Flight::where('active', 1)
+               ->orderBy('name', 'desc')
+               ->take(10)
+               ->get();
+	     */
+		 
+		 $history = \App\booking::all();
+         
+		echo "<pre>";
+		print_r($history);	
+		exit;
+	}	
 }
