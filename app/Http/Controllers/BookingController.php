@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\HotelRoom;
 use Illuminate\Http\Request;
+use DB;
 
 class BookingController extends Controller
 {
@@ -14,7 +16,10 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+		$hotelrooms = \App\HotelRoom::where('hotel_id','=','1')->get();
+		
+		
+		return view('booking',compact('hotelrooms'));
     }
 
     /**
@@ -22,9 +27,25 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	 
+	 
+	 
+	 public function bookingstore(Request $request)
+	 {
+		 
+		 $data = $request->input();
+		 //print_r($data);die;
+		 unset($data['_token']);
+		 DB::table('booking')->insert($data);
+		 
+		 
+	 }
+	 
     public function create()
     {
         //
+		
+
     }
 
     /**
