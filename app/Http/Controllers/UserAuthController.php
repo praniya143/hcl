@@ -12,11 +12,12 @@ class UserAuthController extends Controller
 	    return view('login', ['error' => $request->get('error')]);
     }
     public function auth(Request $request){
+	    session_start();
 	    $userModel = UserAuth::where('user_name', '=', $request->get('user_name'))->first();
 	    if($userModel){
 		    if(md5($request->get('password')) == $userModel->password){
-			   \Session::put('user_id', $userModel->id);
-			   \Session::put('user_details', [$userModel]);		   
+			   $_SESSION['user_id'] = $userModel->id;
+			   $_SESSION['user_details'] = $userModel;
 			   return redirect('/home');
 		    }
 		    return redirect('/login?error=2');

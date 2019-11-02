@@ -12,4 +12,7 @@
 */
 Route::get('login', 'UserAuthController@login');
 Route::post('login', 'UserAuthController@auth');
+Route::get('/hotel-search', 'HotelDetailController@search');
+Route::post('/get-hotel-details', 'HotelDetailController@getHotelDetails');
+Route::post('/get-location-details', 'HotelDetailController@getLocationDetails');
 
